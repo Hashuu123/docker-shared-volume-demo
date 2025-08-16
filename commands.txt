@@ -1,0 +1,21 @@
+# Commands used in this demo
+
+# Step 1: Create a volume
+docker volume create sharedvol
+
+# Step 2: Run first container (writer)
+docker run -it --name writer -v sharedvol:/data ubuntu bash
+echo "Hello from writer" > /data/note.txt
+
+# Step 3: Run second container (reader)
+docker run -it --name reader -v sharedvol:/data ubuntu bash
+cat /data/note.txt
+
+# Step 4: Check all containers
+docker ps -a
+
+# Step 5: Remove containers (optional)
+docker rm -f writer reader
+
+# Step 6: Remove volume (optional)
+docker volume rm sharedvol
